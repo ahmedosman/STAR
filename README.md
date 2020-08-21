@@ -46,7 +46,7 @@ STAR trained on largest dataset of more than 10,000 human body scans, with a lea
 blend shapes. In the Figure below, a single joint movement only influence a sparse set of the model vertices. The mesh vertices in 
 gray are not affected by the joint movement, in contrast to SMPL.  <br/>
 STAR is publicly avaiable with the full 300 principal component 
-shape space for research purposes from our [website][https://star.is.tue.mpg.de/]
+shape space for research purposes from our [https://star.is.tue.mpg.de/]
 
 <p align="center">
   <img src="./images/sparse_pose_correctives.png" />
