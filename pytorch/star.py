@@ -1,0 +1,88 @@
+from __future__ import division
+import torch
+import torch.nn as nn
+import numpy as np
+import os 
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+from .utils import rodrigues , quat_feat
+from config import cfg 
+
+
+class STAR(nn.Module):
+    def __init__(self,gender='male',batch_size=32,num_betas=10):
+        super(STAR, self).__init__()
+        smpl_model = np.load(os.path.join(cfg.path_star,gender),allow_pickle=True,encoding='latin1')[()]
+        
+        J_regressor = smpl_model['J_regressor'].toarray()
+        rows,cols = np.where(J_regressor!=0)
+        vals = J_regressor[rows,cols]
+
+        self.register_buffer('J_regressor', torch.cuda.FloatTensor(J_regressor))
+        self.register_buffer('weights', torch.cuda.FloatTensor(smpl_model['weights']))
+
+        self.register_buffer('posedirs', torch.cuda.FloatTensor(smpl_model['posedirs'].reshape((-1,96))))
+        self.register_buffer('v_template', torch.cuda.FloatTensor(smpl_model['v_template']))
+        self.register_buffer('shapedirs', torch.cuda.FloatTensor(np.array(smpl_model['shapedirs'][:,:,:num_betas])))
+        self.register_buffer('faces', torch.from_numpy(smpl_model['f'].astype(np.int64)))
+
+        self.register_buffer('kintree_table', torch.from_numpy(smpl_model['kintree_table'].astype(np.int64)))
+        id_to_col = {self.kintree_table[1, i].item(): i for i in range(self.kintree_table.shape[1])}
+        self.register_buffer('parent', torch.LongTensor(
+            [id_to_col[self.kintree_table[0, it].item()] for it in range(1, self.kintree_table.shape[1])]))
+
+        self.pose_shape = [24, 3]
+        self.beta_shape = [10]
+        self.translation_shape = [3]
+        self.pose = torch.zeros(self.pose_shape)
+        self.beta = torch.zeros(self.beta_shape)
+        self.translation = torch.zeros(self.translation_shape)
+        self.verts = None
+        self.J = None
+        self.R = None
+
+    def forward(self, pose, beta):
+        '''
+            forward the model analysis
+        :param pose: Pose parameters.
+        :param beta: Beta parameters.
+        :return:
+        '''
+        device = pose.device
+        batch_size = pose.shape[0]
+        v_template = self.v_template[None, :]
+        shapedirs = self.shapedirs.view(-1, 10)[None, :].expand(batch_size, -1, -1)
+        beta = beta[:, :, None]
+        v_shaped = torch.matmul(shapedirs, beta).view(-1, 6890, 3) + v_template
+
+        J = torch.einsum('bik,ji->bjk', [v_shaped, self.J_regressor])
+
+        pose_cube = pose.view(-1, 3)
+        lrotmin = quat_feat(pose_cube).view(batch_size, -1)
+        R = rodrigues(pose_cube).view(batch_size, 24, 3, 3)
+        R = R.view(batch_size, 24, 3, 3)
+
+        posedirs = self.posedirs[None, :].expand(batch_size, -1, -1)
+        v_posed = v_shaped + torch.matmul(posedirs, lrotmin[:, :, None]).view(-1, 6890, 3)
+        
+        J_ = J.clone()
+        J_[:, 1:, :] = J[:, 1:, :] - J[:, self.parent, :]
+        G_ = torch.cat([R, J_[:, :, :, None]], dim=-1)
+        pad_row = torch.FloatTensor([0, 0, 0, 1]).to(device).view(1, 1, 1, 4).expand(batch_size, 24, -1, -1)
+        G_ = torch.cat([G_, pad_row], dim=2)
+        G = [G_[:, 0].clone()]
+        for i in range(1, 24):
+            G.append(torch.matmul(G[self.parent[i - 1]], G_[:, i, :, :]))
+        G = torch.stack(G, dim=1)
+        rest = torch.cat([J, torch.zeros(batch_size, 24, 1).to(device)], dim=2).view(batch_size, 24, 4, 1)
+        
+        zeros = torch.zeros(batch_size, 24, 4, 3).to(device)
+        rest = torch.cat([zeros, rest], dim=-1)
+        rest = torch.matmul(G, rest)
+        G = G - rest
+        T = torch.matmul(self.weights, G.permute(1, 0, 2, 3).contiguous().view(24, -1)).view(6890, batch_size, 4,4).transpose(0, 1)
+        rest_shape_h = torch.cat([v_posed, torch.ones_like(v_posed)[:, :, [0]]], dim=-1)
+        v = torch.matmul(T, rest_shape_h[:, :, :, None])[:, :, :3, 0]
+        return v
