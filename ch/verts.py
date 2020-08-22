@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# encoding: utf-8
+# Copyright (c) 2016 Max Planck Society. All rights reserved.
+# Modified by Ahmed A. A. Osman Feb 2020
+
 import chumpy
 import numpy
 import scipy.sparse as sp
