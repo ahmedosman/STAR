@@ -97,7 +97,7 @@ If you find this Model & Software useful in your research we would kindly ask yo
 ## Acknowledgments
 We thank Naureen M. Mahmood, Talha Zaman,  Nikos Athanasiou, Muhammed Kocabas, Nikos Kolotouros and Vassilis Choutas for the discussions 
 and Sai Kumar Dwivedi, Lea Muller,  Amir Ahmad and Nitin Saini for proof reading the script and Joachim Tesch for help with game engines plug-ins.
-Thanks Mason Laundry for the voice over and Benjamin Pellkofer for the IT support.
+Thanks Mason Landry for the voice over and Benjamin Pellkofer for the IT support.
 
 ## Contact
 
