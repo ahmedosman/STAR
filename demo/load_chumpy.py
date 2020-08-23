@@ -19,9 +19,9 @@
 # Code Developed by:
 # Ahmed A. A. Osman
 path_model = '/ps/scratch/aosman/STAR/eccv2020_release/star/male/model.npy'
-from ch.star import load_model
+from ch.star import STAR
 '''
     Remove dependency on opencv 
     Add the shape component 
 '''
-model = load_model(gender='female',num_betas=10)
+model = STAR(gender='female',num_betas=10)
