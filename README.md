@@ -64,6 +64,9 @@ Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow
 ## Installation 
 
 ### Install 
+
+We recommend doing the following in a python3 virtual environment.
+
 1. Clone the repository: 
 
 ```Shell
@@ -75,12 +78,12 @@ Chumpy
 pip install chumpy==0.69
 pip install opencv-python
 ```
-<br/>
+
 PyTorch
 ```
 pip install pytorch==1.6
 ```
-<br/>
+
 Tensorflow
 ```
 pip install tensorflow-gpu==2.3
