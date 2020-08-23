@@ -16,7 +16,7 @@
   * [License](#license)
   * [Description](#description)
     * [Content](#content)
-    * [Install and Usage](#Installation and Usage)
+    * [Installation and Usage](#Installation)
     * [SMPL Comparison](#SMPLComparison)
   * [Citation](#citation)
   * [Acknowledgments](#acknowledgments)
@@ -61,7 +61,7 @@ This repository contains the model loader in the following frameworks:
 
 Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow 2.3 , Chumpy 0.69 on Ubuntu 18.04
 
-## Installation and Usage
+## Installation 
 
 ### Install 
 1. Clone the repository: 
