@@ -40,9 +40,9 @@ automatically terminate your rights under this License
 ## Description
 
 STAR - A **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop in replacement for the widely used SMPL model.
-STAR is trained on largest dataset of more than 14,000 human body subjects, with a learned set of sparse and spatially local pose corrective 
+STAR is trained on a largest dataset of more than 14,000 human body subjects, with a learned set of sparse and spatially local pose corrective 
 blend shapes. In the Figure below, a single joint movement only influence a sparse set of the model vertices. The mesh vertices in 
-gray are not affected by the joint movement. In contrast to SMPL bending the left elbow causes a bulge in the right elbow.  <br/>
+gray are not affected by the joint movement. In contrast to SMPL where bending the left elbow causes a bulge in the right elbow.  <br/>
 STAR is publicly avaiable with the full 300 principal component shape space for research purposes from our website https://star.is.tue.mpg.de/
 
 <p align="center">
@@ -54,7 +54,7 @@ STAR is publicly avaiable with the full 300 principal component shape space for 
 [STAR: Sparse Trained Articulated Human Body Regressor](https://ps.is.mpg.de/uploads_file/attachment/attachment/618/star_paper.pdf).
 
 ## Content
-This repository contains the model loader in the following frameworks:
+This repository contains the model loader for the following auto-differention frameworks:
 * PyTorch. 
 * Tensorflow 2.0.
 * Chumpy.
@@ -110,7 +110,8 @@ Under demos/* there are scripts demonstrating how to load and use the model in a
 ```
 
 ## SMPL Comparison 
-STAR is designed to be a drop in replacement for SMPL, similar to SMPL it is parameterised with pose and shape parameters. 
+STAR is designed to be a drop in replacement for SMPL, similar to SMPL it is parameterised with pose and shape parameters, with the same template
+resolution and kinematic tree. 
 
 <p align="center">
   <img src="./images/smpl_vs_star.jpeg" />
@@ -140,9 +141,9 @@ If you find this Model & Software useful in your research we would kindly ask yo
 ```
 
 ## Acknowledgments
-We thank Naureen M. Mahmood, Talha Zaman,  Nikos Athanasiou, Muhammed Kocabas, Nikos Kolotouros and Vassilis Choutas for the discussions 
-and Sai Kumar Dwivedi, Lea Muller,  Amir Ahmad and Nitin Saini for proof reading the script and Joachim Tesch for help with game engines plug-ins.
-Thanks Mason Landry for the voice over and Benjamin Pellkofer for the IT support.
+We thank Naureen M. Mahmood, Talha Zaman,  Nikos Athanasiou, Joachim Tesch, Muhammed Kocabas, Nikos Kolotouros and Vassilis Choutas for the discussions 
+and Sai Kumar Dwivedi, Lea Muller,  Amir Ahmad and Nitin Saini for proof reading the script and
+Mason Landry for the voice over and Benjamin Pellkofer for the IT support.
 
 ## Contact
 
