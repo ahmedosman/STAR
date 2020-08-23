@@ -16,6 +16,7 @@
   * [License](#license)
   * [Description](#description)
     * [Content](#content)
+    * [Install and Usage](#Install_Usage)
     * [SMPL Comparison](#SMPLComparison)
   * [Citation](#citation)
   * [Acknowledgments](#acknowledgments)
@@ -59,6 +60,48 @@ This repository contains the model loader in the following frameworks:
 * Chumpy.
 
 Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow 2.3 , Chumpy 0.69 on Ubuntu 18.04
+
+## Install_Usage
+
+### Install 
+1. Clone the repository: 
+
+```Shell
+git clone git@github.com:ahmedosman/STAR.git
+```
+2. For Chumpy
+```
+pip install chumpy==0.69
+pip install opencv-python
+```
+3.For PyTorch
+```
+pip install pytorch==1.6
+```
+4.For Tensorflow
+```
+pip install tensorflow-gpu==2.3
+```
+5. Download the models from [our website][https://star.is.tue.mpg.de/] and update the paths in config.py
+6. Update the python path environment variable ($PATH_TO_REPO is the path to the repository on your machine). 
+```
+export PYTHONPATH=$PYTHONPATH:$PATH_TO_REPO
+```
+
+### Usage
+
+Under demos/* there are scripts demonstrating how to load and use the model in all frameworks. 
+```bash
+    $PATH_TO_REPO/
+    ├── demos
+    │   │
+    │   ├── compare_frameworks.py #Unit test script constructing the model with three frameworks and comparing the output
+    │   └── load_chumpy.py        #A script demonstrating loading the model in chumpy
+    │   └── load_tf.py            #A script demonstrating loading the model in Tensorflow
+    │   └── load_torch.py         #A script demonstrating loading the model in PyTorch
+    │   └── profile_tf.py         #A script profiling the STAR graph as a function of batch Size in Tensorflow
+    |   └── profile_torch.py      #A script profiling the STAR graph as a function of batch Size in PyTorch
+```
 
 ## SMPL Comparison 
 STAR is designed to be a drop in replacement for SMPL, similar to SMPL it is parameterised with pose and shape parameters. 
