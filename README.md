@@ -69,16 +69,17 @@ Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow
 ```Shell
 git clone git@github.com:ahmedosman/STAR.git
 ```
-2. For Chumpy
+2. Install your favorite framework
+Chumpy
 ```
 pip install chumpy==0.69
 pip install opencv-python
 ```
-3.For PyTorch
+PyTorch
 ```
 pip install pytorch==1.6
 ```
-4.For Tensorflow
+Tensorflow
 ```
 pip install tensorflow-gpu==2.3
 ```
