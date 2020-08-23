@@ -88,8 +88,8 @@ Tensorflow
 ```
 pip install tensorflow-gpu==2.3
 ```
-5. Download the models from [our website][https://star.is.tue.mpg.de/] and update the paths in config.py
-6. Update the python path environment variable ($PATH_TO_REPO is the path to the repository on your machine). 
+5. Download the models from our website https://star.is.tue.mpg.de/ and update the model paths in the config.py file.
+6. Update the python path environment variable ($PATH_TO_REPO is the path to the STAR repository on your machine). 
 ```
 export PYTHONPATH=$PYTHONPATH:$PATH_TO_REPO
 ```
