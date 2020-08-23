@@ -18,7 +18,6 @@
     * [Content](#content)
     * [Dependencies](#dependencies)
     * [SMPL Comparison](#SMPLComparison)
-    * [Profiling](#Profiling) 
   * [Citation](#citation)
   * [Acknowledgments](#acknowledgments)
   * [Contact](#contact)
@@ -40,12 +39,11 @@ automatically terminate your rights under this License
 
 ## Description
 
-STAR - **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop in replacement to the widely used SMPL model.
-STAR trained on largest dataset of more than 10,000 human body scans, with a learned set of sparse spatially local pose corrective 
+STAR - A **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop in replacement for the widely used SMPL model.
+STAR is trained on largest dataset of more than 14,000 human body subjects, with a learned set of sparse and spatially local pose corrective 
 blend shapes. In the Figure below, a single joint movement only influence a sparse set of the model vertices. The mesh vertices in 
-gray are not affected by the joint movement, in contrast to SMPL.  <br/>
-STAR is publicly avaiable with the full 300 principal component 
-shape space for research purposes from our [https://star.is.tue.mpg.de/]
+gray are not affected by the joint movement. In contrast to SMPL bending the left elbow causes a bulge in the right elbow.  <br/>
+STAR is publicly avaiable with the full 300 principal component shape space for research purposes from our website https://star.is.tue.mpg.de/
 
 <p align="center">
   <img src="./images/sparse_pose_correctives.png" />
@@ -67,7 +65,7 @@ Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow
 STAR is designed to be a drop in replacement for SMPL, similar to SMPL it is parameterised with pose and shape parameters. 
 
 <p align="center">
-  <img src="./images/star_talk amazon.053.jpeg" />
+  <img src="./images/smpl_vs_star.jpeg" />
 </p>
 
 ### STAR Kinematic Tree
