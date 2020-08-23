@@ -20,15 +20,12 @@
 # Ahmed A. A. Osman
 
 from tf.star import STAR
-'''
-    Remove dependency on opencv 
-    Add the shape component 
-'''
-import tensorflow as tf 
+import tensorflow as tf
+import numpy as np
 batch_size = 10
+gender = 'male'
 star = STAR()
-pose  = tf.random.normal((batch_size,72),dtype=tf.float32) 
-betas = tf.random.normal((batch_size,10),dtype=tf.float32)
-trans = tf.random.normal((batch_size,3),dtype=tf.float32)
-verts = star.get_verts(pose,betas,trans)
-
+trans = tf.constant(np.zeros((1,3)),dtype=tf.float32)
+pose = tf.constant(np.zeros((1,72)),dtype=tf.float32)
+betas = tf.constant(np.zeros((1,10)),dtype=tf.float32)
+print(star(pose,betas,trans))

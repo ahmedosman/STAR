@@ -17,7 +17,7 @@
 #
 #
 # Code Developed by:
-# Ahmed A. A. Osman 
+# Ahmed A. A. Osman
 
 
 path_model = '/ps/scratch/aosman/STAR/eccv2020_release/star/male/model.npy'
@@ -27,7 +27,7 @@ init_pose  = np.random.normal(0,1,72)
 init_trans = np.zeros(3)
 init_betas = np.random.normal(0,1,10)
 
-from ch.serialization import load_model 
+from ch.star import load_model
 '''
     Remove dependency on opencv 
     Add the shape component 

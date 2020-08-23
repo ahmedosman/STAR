@@ -18,11 +18,10 @@
 #
 # Code Developed by:
 # Ahmed A. A. Osman
-
 path_model = '/ps/scratch/aosman/STAR/eccv2020_release/star/male/model.npy'
-from ch.serialization import load_model 
+from ch.star import load_model
 '''
     Remove dependency on opencv 
     Add the shape component 
 '''
-model = load_model(path_model)
+model = load_model(gender='female',num_betas=10)

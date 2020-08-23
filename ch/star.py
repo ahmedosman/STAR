@@ -25,7 +25,7 @@ import os
 from .verts import verts_decorated_quat 
 from config import cfg 
 
-def load_model(gender='female',num_betas=10):
+def STAR(gender='female',num_betas=10):
 
     if gender not in ['male','female']:
         raise RuntimeError('Invalid model gender!')

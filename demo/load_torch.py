@@ -38,6 +38,8 @@ poses = Variable(poses,requires_grad=True)
 betas = torch.cuda.FloatTensor(np.zeros((batch_size,10)))
 betas = Variable(betas,requires_grad=True)
 
+trans = torch.cuda.FloatTensor(np.zeros((batch_size,3)))
+trans = Variable(trans,requires_grad=True)
+d = star(poses, betas,trans)
 
-d = star(poses, betas)
        

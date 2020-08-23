@@ -32,12 +32,14 @@ for batch_size in list_batch_size:
     poses = Variable(poses,requires_grad=True)
     betas = torch.cuda.FloatTensor(np.zeros((batch_size,10)))
     betas = Variable(betas,requires_grad=True)
+    trans = torch.cuda.FloatTensor(np.zeros((batch_size,3)))
+    trans = Variable(trans,requires_grad=True)
     list_iterations = []
     for i in range(0,50):
         start = torch.cuda.Event(enable_timing=True)
         end   = torch.cuda.Event(enable_timing=True)
         start.record()
-        d = star(poses, betas)
+        d = star(poses, betas, trans)
         end.record()
         torch.cuda.synchronize()
         list_iterations.append(start.elapsed_time(end)/1000.0)

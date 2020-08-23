@@ -33,6 +33,6 @@ for batch_size in list_batch_size:
     list_time = []
     for i in range(0,50):
         xstart = time.time()
-        verts = star.get_verts(pose,betas,trans)
+        verts = star(pose,betas,trans)
         list_time.append(time.time()-xstart)
     print('Batch Size %d, Duration %f'%(batch_size,np.mean(list_time[10:])))

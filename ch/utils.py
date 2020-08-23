@@ -56,7 +56,6 @@ def global_rigid_transformation(pose, J, kintree_table):
         results2 = [
             results[i] - pack(results[i].dot(ch.concatenate(((J[i, :]), 0))))
             for i in range(len(results))]
-
         results = results2
 
     result = ch.dstack(results)

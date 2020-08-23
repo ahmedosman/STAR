@@ -161,17 +161,17 @@ class STAR(object):
 
         if gender.lower() not in ['male','female']:
             raise RuntimeError('Invalid model gender')
-        else:
-            path_model = os.path.join(cfg.path_star,gender,'model.npy')
+
+        path_model = os.path.join(cfg.path_star,gender,'model.npz')
 
         import numpy as np
-        self.smpl_model = np.load(path_model,allow_pickle=True,encoding='latin1')[()]
+        self.smpl_model = np.load(path_model,allow_pickle=True)
         cfg.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
 
         self.num_betas = num_betas
 
     @tf.function
-    def get_verts(self,pose,betas,trans):
+    def __call__(self,pose,betas,trans):
         batch_size = pose.shape[0]
         if cfg.data_type == 'float32':
             dtype = tf.float32
@@ -179,27 +179,24 @@ class STAR(object):
             dtype = tf.float64 
         elif cfg.data_type == 'float16':
             dtype = tf.float16 
-        
-        if cfg.device == 'CPU':
-            device = '/CPU:0'
-        else:
-            device = '/GPU:0'
 
-        tf.debugging.set_log_device_placement(True)
-        with tf.device(device):
-            self.J_regressor    = self.smpl_model['J_regressor'].toarray()
-            self.posedirs       = tf.constant(self.smpl_model['posedirs'],dtype=dtype)
-            self.shapedirs      = tf.constant(self.smpl_model['shapedirs'][:,:,:self.num_betas],dtype=dtype)
-            self.weights        = tf.constant(self.smpl_model['weights'],dtype=dtype)
-            self.kintree_table  = self.smpl_model['kintree_table'].astype(np.int32)
-            self.f = self.smpl_model['f']
-            tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'][np.newaxis],[batch_size,1,1]),dtype=dtype)
-            v_shaped = tf.add( tf.einsum('ijk,lk->lij', self.shapedirs, betas), tf_v_template)
-            poseblendshapes = tf.einsum('ijk,lk->lij',self.posedirs,quaternions_all(tf.reshape(pose,(-1,24,3))))
-            v_posed = v_shaped +  poseblendshapes
-            J_regressor = tf.constant(self.J_regressor,dtype=dtype)
-            tf_J = tf.einsum('ij,ajk->aik', J_regressor, v_shaped)
-            result, Jtr = verts_core(tf.reshape(pose,(-1,24,3)), v_posed, tf_J, self.weights, self.kintree_table)
-            result = tf.add(result, tf.tile(tf.expand_dims(trans, axis=1), [1, 6890, 1]))
-            result.Jtr = tf.add(Jtr, tf.tile(tf.expand_dims(trans, axis=1), [1, 24, 1]))  
+        self.J_regressor    = tf.constant(self.smpl_model['J_regressor'],dtype=dtype)
+        self.posedirs       = tf.constant(self.smpl_model['posedirs'],dtype=dtype)
+        self.shapedirs      = tf.constant(self.smpl_model['shapedirs'][:,:,:self.num_betas],dtype=dtype)
+        self.weights        = tf.constant(self.smpl_model['weights'],dtype=dtype)
+        self.kintree_table  = self.smpl_model['kintree_table'].astype(np.int32)
+        self.f = self.smpl_model['f']
+        tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'][0],[batch_size,1,1]),dtype=dtype)
+        v_shaped = tf.add( tf.einsum('ijk,lk->lij', self.shapedirs, betas), tf_v_template)
+
+        pose_feat = tf.concat([quaternions_all(tf.reshape(pose,(-1,24,3)))[:,4:],tf.expand_dims(betas[:,1],axis=1)],axis=1)
+        poseblendshapes = tf.einsum('ijk,lk->lij',self.posedirs,pose_feat)
+        v_posed = v_shaped +  poseblendshapes
+        tf_J = tf.einsum('ij,ajk->aik', self.J_regressor, v_shaped)
+        result, Jtr = verts_core(tf.reshape(pose,(-1,24,3)), v_posed, tf_J, self.weights, self.kintree_table)
+        result = tf.add(result, tf.tile(tf.expand_dims(trans, axis=1), [1, 6890, 1]))
+        result.Jtr = tf.add(Jtr, tf.tile(tf.expand_dims(trans, axis=1), [1, 24, 1]))
+        result.pose =  pose
+        result.trans = trans
+        result.betas = betas
         return result
