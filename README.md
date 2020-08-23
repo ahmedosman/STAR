@@ -75,10 +75,12 @@ Chumpy
 pip install chumpy==0.69
 pip install opencv-python
 ```
+<br/>
 PyTorch
 ```
 pip install pytorch==1.6
 ```
+<br/>
 Tensorflow
 ```
 pip install tensorflow-gpu==2.3
