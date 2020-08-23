@@ -162,7 +162,7 @@ class STAR(object):
         if gender.lower() not in ['male','female']:
             raise RuntimeError('Invalid model gender')
 
-        path_model = os.path.join(cfg.path_star,gender,'model.npz')
+        path_model = os.path.join(cfg.path_star,gender,'%s_star_1_0.npz'%(gender))
 
         import numpy as np
         self.smpl_model = np.load(path_model,allow_pickle=True)
@@ -186,7 +186,7 @@ class STAR(object):
         self.weights        = tf.constant(self.smpl_model['weights'],dtype=dtype)
         self.kintree_table  = self.smpl_model['kintree_table'].astype(np.int32)
         self.f = self.smpl_model['f']
-        tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'][0],[batch_size,1,1]),dtype=dtype)
+        tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'],[batch_size,1,1]),dtype=dtype)
         v_shaped = tf.add( tf.einsum('ijk,lk->lij', self.shapedirs, betas), tf_v_template)
 
         pose_feat = tf.concat([quaternions_all(tf.reshape(pose,(-1,24,3)))[:,4:],tf.expand_dims(betas[:,1],axis=1)],axis=1)

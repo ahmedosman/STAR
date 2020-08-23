@@ -32,13 +32,13 @@ def STAR(gender='female',num_betas=10):
     if num_betas < 2:
         raise RuntimeError('Number of betas should be at least 2')
 
-    fname = os.path.join(cfg.path_star,gender,'model.npz')
+    fname = os.path.join(cfg.path_star,gender,'%s_star_1_0.npz'%(gender))
 
 
     model_dict  = np.load(fname,allow_pickle=True)
     trans       = ch.array(np.zeros(3))
     posedirs    = ch.array(model_dict['posedirs'])
-    v_tempalate = ch.array(model_dict['v_template'][0])
+    v_tempalate = ch.array(model_dict['v_template'])
 
     J_regressor   = ch.array(model_dict['J_regressor']) #Regressor of the model
     weights       = ch.array(model_dict['weights']) #Weights

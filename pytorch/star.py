@@ -35,7 +35,7 @@ from config import cfg
 class STAR(nn.Module):
     def __init__(self,batch_size=32,gender='male',num_betas=10):
         super(STAR, self).__init__()
-        smpl_model = np.load(os.path.join(cfg.path_star,gender,'model.npz'),allow_pickle=True)
+        smpl_model = np.load(os.path.join(cfg.path_star,gender,'%s_star_1_0.npz'%(gender)),allow_pickle=True)
         
         J_regressor = smpl_model['J_regressor']
         rows,cols = np.where(J_regressor!=0)

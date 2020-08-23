@@ -20,7 +20,7 @@
 # Ahmed A. A. Osman
 
 import os
-path_star = '' 
+path_star = '/home/aosman/Documents/star_1.0_release'
 data_type = 'float32'
 
 
