@@ -26,28 +26,32 @@ from .verts import verts_decorated_quat
 from config import cfg 
 
 def load_model(gender='female',num_betas=10):
+
     if gender not in ['male','female']:
         raise RuntimeError('Invalid model gender!')
-    fname = os.path.join(cfg.path_star,gender,'model.npy')
-    model_dict  = np.load(fname,allow_pickle=True,encoding='latin1')[()]
+    if num_betas < 2:
+        raise RuntimeError('Number of betas should be at least 2')
+
+    fname = os.path.join(cfg.path_star,gender,'model.npz')
+
+
+    model_dict  = np.load(fname,allow_pickle=True)
     trans       = ch.array(np.zeros(3))
     posedirs    = ch.array(model_dict['posedirs'])
-    v_tempalate = ch.array(model_dict['v_template'])
+    v_tempalate = ch.array(model_dict['v_template'][0])
 
-    J_regressor   = model_dict['J_regressor'] #Regressor of the model
+    J_regressor   = ch.array(model_dict['J_regressor']) #Regressor of the model
     weights       = ch.array(model_dict['weights']) #Weights
     num_joints    = weights.shape[1]
     kintree_table = model_dict['kintree_table']
     f = model_dict['f']
-
     betas = ch.array(np.zeros((model_dict['shapedirs'].shape[-1]))) #Betas
     shapedirs = ch.array(model_dict['shapedirs']) #Shape Corrective Blend shapes
     pose = ch.array(np.zeros((num_joints*3))) #Pose Angles
-
     model = verts_decorated_quat(trans=trans,
                     pose=pose,
                     v_template=v_tempalate,
-                    J=J_regressor,
+                    J_regressor=J_regressor,
                     weights=weights,
                     kintree_table=kintree_table,
                     f=f,
