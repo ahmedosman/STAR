@@ -55,9 +55,9 @@ STAR is publicly avaiable with the full 300 principal component shape space for 
 
 ## Content
 This repository contains the model loader in the following frameworks:
-* A PyTorch. 
-* A Tensorflow 2.0.
-* A Chumpy.
+* PyTorch. 
+* Tensorflow 2.0.
+* Chumpy.
 
 Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow 2.3 , Chumpy 0.69 on Ubuntu 18.04
 
