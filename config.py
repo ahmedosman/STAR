@@ -20,12 +20,9 @@
 # Ahmed A. A. Osman
 
 import os
-path_star = '/home/aosman/Documents/star_1.0_release'
+path_male_star = ''
+path_female_star = ''
 data_type = 'float32'
-
-
-if not os.path.exists(path_star):
-    raise RuntimeError('Path to the STAR model does not exist!')
 
 if data_type not in ['float16','float32','float64']:
     raise RuntimeError('Invalid data type %s'%(data_type))
@@ -35,4 +32,6 @@ class meta(object):
 
 cfg = meta()
 cfg.data_type = data_type
-cfg.path_star = path_star 
+
+cfg.path_male_star = path_male_star
+cfg.path_female_star = path_female_star

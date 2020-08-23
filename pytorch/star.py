@@ -33,10 +33,22 @@ from config import cfg
 
 
 class STAR(nn.Module):
-    def __init__(self,batch_size=32,gender='male',num_betas=10):
+    def __init__(self,gender='female',num_betas=10):
         super(STAR, self).__init__()
-        smpl_model = np.load(os.path.join(cfg.path_star,gender,'%s_star_1_0.npz'%(gender)),allow_pickle=True)
-        
+
+        if gender not in ['male','female']:
+            raise RuntimeError('Invalid Gender')
+
+        if gender == 'male':
+            path_model = cfg.path_male_star
+        else:
+            path_model = cfg.path_female_star
+
+        if not os.path.exists(path_model):
+            raise RuntimeError('Path does not exist %s' % (path_model))
+        import numpy as np
+
+        smpl_model = np.load(path_model,allow_pickle=True)
         J_regressor = smpl_model['J_regressor']
         rows,cols = np.where(J_regressor!=0)
         vals = J_regressor[rows,cols]
@@ -45,7 +57,7 @@ class STAR(nn.Module):
         self.register_buffer('weights', torch.cuda.FloatTensor(smpl_model['weights']))
 
         self.register_buffer('posedirs', torch.cuda.FloatTensor(smpl_model['posedirs'].reshape((-1,93))))
-        self.register_buffer('v_template', torch.cuda.FloatTensor(smpl_model['v_template'][0]))
+        self.register_buffer('v_template', torch.cuda.FloatTensor(smpl_model['v_template']))
         self.register_buffer('shapedirs', torch.cuda.FloatTensor(np.array(smpl_model['shapedirs'][:,:,:num_betas])))
         self.register_buffer('faces', torch.from_numpy(smpl_model['f'].astype(np.int64)))
         self.f = smpl_model['f']
@@ -69,11 +81,10 @@ class STAR(nn.Module):
         device = pose.device
         batch_size = pose.shape[0]
         v_template = self.v_template[None, :]
-        shapedirs = self.shapedirs.view(-1, 10)[None, :].expand(batch_size, -1, -1)
+        shapedirs  = self.shapedirs.view(-1, 10)[None, :].expand(batch_size, -1, -1)
 
         beta = betas[:, :, None]
         v_shaped = torch.matmul(shapedirs, beta).view(-1, 6890, 3) + v_template
-
         J = torch.einsum('bik,ji->bjk', [v_shaped, self.J_regressor])
 
         pose_quat = quat_feat(pose.view(-1, 3)).view(batch_size, -1)
@@ -105,4 +116,6 @@ class STAR(nn.Module):
         v = torch.matmul(T, rest_shape_h[:, :, :, None])[:, :, :3, 0]
         v = v + trans[:,None,:]
         v.f = self.f
-        return v
+        v.v_posed = v_posed
+        v.v_shaped = v_shaped
+        return v_shaped

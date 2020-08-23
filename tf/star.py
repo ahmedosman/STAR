@@ -162,9 +162,15 @@ class STAR(object):
         if gender.lower() not in ['male','female']:
             raise RuntimeError('Invalid model gender')
 
-        path_model = os.path.join(cfg.path_star,gender,'%s_star_1_0.npz'%(gender))
+        if gender == 'male':
+            path_model = cfg.path_male_star
+        else:
+            path_model = cfg.path_female_star
 
+        if not os.path.exists(path_model):
+            raise RuntimeError('Path does not exist %s' % (path_model))
         import numpy as np
+
         self.smpl_model = np.load(path_model,allow_pickle=True)
         cfg.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
 
