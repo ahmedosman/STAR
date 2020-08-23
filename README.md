@@ -26,15 +26,15 @@
 ## License
 
 Software Copyright License for non-commercial scientific research purposes.
-Please read carefully the following terms and conditions and any accompanying
+Please read carefully the following [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE) and any accompanying
 documentation before you download and/or use the STAR model and
 software, (the "Data & Software"). By downloading and/or using the
 Data & Software (including downloading, cloning, installing, and any other use
 of the corresponding github repository), you acknowledge that you have read
-these terms and conditions, understand them, and agree to be bound by them. If
-you do not agree with these terms and conditions, you must not download and/or
+these [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE), understand them, and agree to be bound by them. If
+you do not agree with these [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE), you must not download and/or
 use the Data & Software. Any infringement of the terms of this agreement will
-automatically terminate your rights under this License
+automatically terminate your rights under this [License](https://github.com/ahmedosman/STAR/blob/master/LICENSE)
 
 
 ## Description
