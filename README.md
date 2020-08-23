@@ -16,7 +16,6 @@
   * [License](#license)
   * [Description](#description)
     * [Content](#content)
-    * [Dependencies](#dependencies)
     * [SMPL Comparison](#SMPLComparison)
   * [Citation](#citation)
   * [Acknowledgments](#acknowledgments)
