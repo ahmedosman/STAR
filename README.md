@@ -40,7 +40,7 @@ automatically terminate your rights under this [License](https://github.com/ahme
 ## Description
 
 STAR - A **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop in replacement for the widely used SMPL model.
-STAR is trained on a largest dataset of more than 14,000 human body subjects, with a learned set of sparse and spatially local pose corrective 
+STAR is trained on a large dataset of 14,000 human body subjects, with a learned set of sparse and spatially local pose corrective 
 blend shapes. In the Figure below, a single joint movement only influence a sparse set of the model vertices. The mesh vertices in 
 gray are not affected by the joint movement. In contrast to SMPL where bending the left elbow causes a bulge in the right elbow.  <br/>
 STAR is publicly avaiable with the full 300 principal component shape space for research purposes from our website https://star.is.tue.mpg.de/
