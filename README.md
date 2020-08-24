@@ -26,12 +26,12 @@
 ## License
 
 Software Copyright License for non-commercial scientific research purposes.
-Please read carefully the following [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE) and any accompanying
+Please read carefully the [LICENSE file](https://github.com/ahmedosman/STAR/blob/master/LICENSE) and any accompanying
 documentation before you download and/or use the STAR model and
 software, (the "Data & Software"). By downloading and/or using the
 Data & Software (including downloading, cloning, installing, and any other use
 of the corresponding github repository), you acknowledge that you have read
-these [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE), understand them, and agree to be bound by them. If
+these [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE) in the LICENSE file, understand them, and agree to be bound by them. If
 you do not agree with these [terms and conditions](https://github.com/ahmedosman/STAR/blob/master/LICENSE), you must not download and/or
 use the Data & Software. Any infringement of the terms of this agreement will
 automatically terminate your rights under this [License](https://github.com/ahmedosman/STAR/blob/master/LICENSE)
@@ -39,11 +39,11 @@ automatically terminate your rights under this [License](https://github.com/ahme
 
 ## Description
 
-STAR - A **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop in replacement for the widely used SMPL model.
-STAR is trained on a large dataset of 14,000 human body subjects, with a learned set of sparse and spatially local pose corrective 
+STAR - A **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop-in replacement for the widely used SMPL model.
+STAR is trained on a large dataset of 14,000 human subjects, with a learned set of sparse and spatially local pose corrective 
 blend shapes. In the Figure below, a single joint movement only influences a sparse set of the model vertices. The mesh vertices in 
-gray are not affected by the joint movement. In contrast to SMPL where bending the left elbow causes a bulge in the right elbow.  <br/>
-STAR is publicly avaiable with the full 300 principal component shape space for research purposes from our website https://star.is.tue.mpg.de/
+gray are not affected by the joint movement. In contrast, for SMPL, bending the left elbow causes a bulge in the right elbow.  <br/>
+STAR is publicly avaiable with the full 300 principal-component shape space for research purposes from our website https://star.is.tue.mpg.de/
 
 <p align="center">
   <img src="./images/sparse_pose_correctives.png" />
@@ -59,7 +59,7 @@ This repository contains the model loader for the following auto-differention fr
 * Tensorflow 2.0.
 * Chumpy.
 
-Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow 2.3 , Chumpy 0.69 on Ubuntu 18.04
+Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow 2.3, Chumpy 0.69 on Ubuntu 18.04
 
 ## Installation 
 
@@ -142,11 +142,11 @@ If you find this Model & Software useful in your research we would kindly ask yo
 
 ## Acknowledgments
 We thank Naureen M. Mahmood, Talha Zaman,  Nikos Athanasiou, Joachim Tesch, Muhammed Kocabas, Nikos Kolotouros and Vassilis Choutas for the discussions 
-and Sai Kumar Dwivedi, Lea Muller,  Amir Ahmad and Nitin Saini for proof reading the script and
-Mason Landry for the voice over and Benjamin Pellkofer for the IT support.
+and Sai Kumar Dwivedi, Lea Muller, Amir Ahmad and Nitin Saini for proof reading the script and
+Mason Landry for the video voice over and Benjamin Pellkofer for the IT support.
 
 ## Contact
 
 For questions, please contact [star@tue.mpg.de](mailto:star@tue.mpg.de). 
 
-For commercial licensing (and all related questions for business applications), please contact [ps-licensing@tue.mpg.de](mailto:ps-licensing@tue.mpg.de).
+For commercial licensing (and all related questions for business applications), please contact [ps-license@tue.mpg.de](mailto:ps-license@tue.mpg.de).
