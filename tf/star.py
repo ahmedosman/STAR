@@ -159,13 +159,15 @@ def lrotmin(p):
 class STAR(object):
     def __init__(self,gender='female',num_betas=10):
 
-        if gender.lower() not in ['male','female']:
+        if gender.lower() not in ['male','female','neutral']:
             raise RuntimeError('Invalid model gender')
 
         if gender == 'male':
             path_model = cfg.path_male_star
-        else:
+        elif gender == 'female':
             path_model = cfg.path_female_star
+        else:
+            path_model = cfg.path_neutral_star
 
         if not os.path.exists(path_model):
             raise RuntimeError('Path does not exist %s' % (path_model))

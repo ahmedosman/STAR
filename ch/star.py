@@ -27,15 +27,18 @@ from config import cfg
 
 def STAR(gender='female',num_betas=10):
 
-    if gender not in ['male','female']:
+    if gender not in ['male','female','neutral']:
         raise RuntimeError('Invalid model gender!')
     if num_betas < 2:
         raise RuntimeError('Number of betas should be at least 2')
 
     if gender == 'male':
         fname = cfg.path_male_star
-    else:
+    elif gender == 'female':
         fname = cfg.path_female_star
+    else:
+        fname = cfg.path_neutral_star
+
     if not os.path.exists(fname):
         raise RuntimeError('Path does not exist %s'%(fname))
 

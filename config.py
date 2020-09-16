@@ -22,6 +22,8 @@
 import os
 path_male_star = ''
 path_female_star = ''
+path_neutral_star = ''
+
 data_type = 'float32'
 
 if data_type not in ['float16','float32','float64']:
@@ -33,5 +35,6 @@ class meta(object):
 cfg = meta()
 cfg.data_type = data_type
 
-cfg.path_male_star = path_male_star
-cfg.path_female_star = path_female_star
+cfg.path_male_star    = path_male_star
+cfg.path_female_star  = path_female_star
+cfg.path_neutral_star = path_neutral_star

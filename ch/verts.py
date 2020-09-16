@@ -13,6 +13,11 @@ from .utils import verts_core , axis2quat , verts_core
 def ischumpy(x):
     return hasattr(x, 'dterms')
 
+
+
+
+
+
 def verts_decorated_quat(trans,
                     pose,
                     v_template,

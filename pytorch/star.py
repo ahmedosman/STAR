@@ -36,13 +36,15 @@ class STAR(nn.Module):
     def __init__(self,gender='female',num_betas=10):
         super(STAR, self).__init__()
 
-        if gender not in ['male','female']:
+        if gender not in ['male','female','neutral']:
             raise RuntimeError('Invalid Gender')
 
         if gender == 'male':
             path_model = cfg.path_male_star
-        else:
+        elif gender == 'female':
             path_model = cfg.path_female_star
+        else:
+            path_model = cfg.path_neutral_star
 
         if not os.path.exists(path_model):
             raise RuntimeError('Path does not exist %s' % (path_model))
