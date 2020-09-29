@@ -120,4 +120,4 @@ class STAR(nn.Module):
         v.f = self.f
         v.v_posed = v_posed
         v.v_shaped = v_shaped
-        return v_shaped
+        return v
