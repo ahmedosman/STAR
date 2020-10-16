@@ -23,7 +23,7 @@ import chumpy  as ch
 import numpy as np
 import os
 from .verts import verts_decorated_quat 
-from config import cfg 
+from ..config import cfg
 
 def STAR(gender='female',num_betas=10):
 

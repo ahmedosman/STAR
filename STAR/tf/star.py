@@ -22,7 +22,7 @@
 
 import tensorflow as tf
 import numpy as np
-from config import cfg 
+from ..config import cfg 
 import os 
 
 @tf.function

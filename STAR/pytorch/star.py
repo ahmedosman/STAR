@@ -29,7 +29,7 @@ try:
 except ImportError:
     import pickle
 from .utils import rodrigues , quat_feat
-from config import cfg 
+from ..config import cfg 
 
 
 class STAR(nn.Module):
