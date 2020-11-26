@@ -34,9 +34,8 @@ def verts_decorated_quat(trans,
     for which in [trans, pose, v_template, weights, posedirs, betas, shapedirs]:
         if which is not None:
             assert ischumpy(which)
+
     v = v_template
-
-
     v_shaped = v + shapedirs.dot(betas) #Add Shape of the model.
     quaternion_angles = axis2quat(pose.reshape((-1, 3))).reshape(-1)[4:]
     shape_feat = betas[1]
@@ -49,7 +48,7 @@ def verts_decorated_quat(trans,
     J_tmpz = MatVecMult(J_regressor, v_shaped[:, 2])
     J = chumpy.vstack((J_tmpx, J_tmpy, J_tmpz)).T
 
-    result, meta = verts_core(pose, v, J, weights, kintree_table, want_Jtr=True)
+    result, meta = verts_core(pose,v_posed, J, weights, kintree_table, want_Jtr=True)
     Jtr = meta.Jtr if meta is not None else None
     tr = trans.reshape((1, 3))
     result = result + tr
