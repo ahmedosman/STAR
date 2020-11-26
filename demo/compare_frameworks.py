@@ -16,21 +16,19 @@
 #
 # STAR: Sparse Trained  Articulated Human Body Regressor <https://arxiv.org/pdf/2008.08535.pdf>
 #
-#
+# A Basic unit test comparing the output of all frameworks.
 # Code Developed by:
 # Ahmed A. A. Osman
 
 from ch.star import STAR
 import numpy as np
 batch_size = 1
-np_trans = np.random.normal(0,2,(1,3))
-np_pose = np.random.normal(0,2,(1,72))
-np_betas = np.random.normal(0,2,(1,10))
-np_trans[:] = 0.0
-np_pose[:]  = 0.0
-np_betas[:] = 0.0
 
+np_trans = np.random.normal(0,2,(1,3))
+np_pose  = np.random.normal(0,2,(1,72))
+np_betas = np.random.normal(0,2,(1,10))
 model = STAR(gender='female',num_betas=10)
+
 model.trans[:] = np_trans[0]
 model.pose[:]  = np_pose[0]
 model.betas[:] = np_betas[0]
@@ -61,7 +59,7 @@ trans = torch.cuda.FloatTensor(np_trans)
 trans = Variable(trans,requires_grad=True)
 d = star(poses, betas,trans)
 
-diff = (model.v_shaped.r -d.cpu().detach().numpy())**2.0
+diff = (model.r -d.cpu().detach().numpy())**2.0
 print(np.mean(np.sqrt(np.sum(diff,axis=-1))))
 
 diff = (tf_star.numpy() -d.cpu().detach().numpy())**2.0
