@@ -18,23 +18,31 @@
 #
 # Code Developed by:
 # Ahmed A. A. Osman
+import setuptools
 
-import os
-path_male_star = ''
-path_female_star = ''
-path_neutral_star = ''
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+    
+REQUIREMENTS = ["numpy", "chumpy", "opencv-python"]
 
-data_type = 'float32'
+setuptools.setup(
+     name='STAR',  
+     version='0.0.1',
+     author="Ahmed A. A. Osman",
+     author_email="ahmed.osman@tuebingen.mpg.de",
+     install_requires=REQUIREMENTS,
+     description="STAR: Sparse Trained Articulated Human Body Regressor",
+     long_description=long_description,
+     long_description_content_type="text/markdown",
+     url="https://github.com/ahmedosman/STAR",
+     packages=setuptools.find_packages(),
+     classifiers=[
+         "Programming Language :: Python :: 2",
+         "Programming Language :: Python :: 3",
+         "License :: Other/Proprietary License",
+         "Operating System :: OS Independent",
+     ],
+     
 
-if data_type not in ['float16','float32','float64']:
-    raise RuntimeError('Invalid data type %s'%(data_type))
+ )
 
-class meta(object):
-    pass 
-
-cfg = meta()
-cfg.data_type = data_type
-
-cfg.path_male_star    = path_male_star
-cfg.path_female_star  = path_female_star
-cfg.path_neutral_star = path_neutral_star

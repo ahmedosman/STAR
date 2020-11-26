@@ -29,7 +29,7 @@ try:
 except ImportError:
     import pickle
 from .utils import rodrigues , quat_feat
-from config import cfg 
+from ..config import cfg 
 
 
 class STAR(nn.Module):
@@ -54,6 +54,7 @@ class STAR(nn.Module):
         J_regressor = smpl_model['J_regressor']
         rows,cols = np.where(J_regressor!=0)
         vals = J_regressor[rows,cols]
+        self.num_betas = num_betas
 
         self.register_buffer('J_regressor', torch.cuda.FloatTensor(J_regressor))
         self.register_buffer('weights', torch.cuda.FloatTensor(smpl_model['weights']))
@@ -83,7 +84,7 @@ class STAR(nn.Module):
         device = pose.device
         batch_size = pose.shape[0]
         v_template = self.v_template[None, :]
-        shapedirs  = self.shapedirs.view(-1, 10)[None, :].expand(batch_size, -1, -1)
+        shapedirs  = self.shapedirs.view(-1, self.num_betas)[None, :].expand(batch_size, -1, -1)
 
         beta = betas[:, :, None]
         v_shaped = torch.matmul(shapedirs, beta).view(-1, 6890, 3) + v_template
@@ -121,3 +122,16 @@ class STAR(nn.Module):
         v.v_posed = v_posed
         v.v_shaped = v_shaped
         return v
+    
+    def get_joints(self, vertices):
+        """
+        This method is used to get the joint locations from the SMPL mesh
+        Input:
+            vertices: size = (B, 6890, 3)
+        Output:
+            3D joints: size = (B, 38, 3)
+        """
+        JOINTS_IDX = [e for e in np.arange(24)]
+        joints = torch.einsum("bik,ji->bjk", [vertices, self.J_regressor])
+        joints = joints[:, JOINTS_IDX]
+        return joints
