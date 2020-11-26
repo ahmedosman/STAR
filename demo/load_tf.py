@@ -19,7 +19,7 @@
 # Code Developed by:
 # Ahmed A. A. Osman
 
-from tf.star import STAR
+from star.tf.star import STAR
 import tensorflow as tf
 import numpy as np
 batch_size = 10

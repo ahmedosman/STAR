@@ -18,20 +18,28 @@
 #
 # Code Developed by:
 # Ahmed A. A. Osman
-
-from pytorch.star import STAR
-star = STAR(gender='female')
+from star.pytorch.star import STAR
+import numpy as np
+from numpy import newaxis
+import pickle
+import os
 import torch
-import numpy as np 
-from torch.autograd import Variable
-batch_size=10
+
+star = STAR(gender='female')
+betas = np.array([
+            np.array([ 2.25176191, -3.7883464, 0.46747496, 3.89178988,
+                      2.20098416, 0.26102114, -3.07428093, 0.55708514,
+                      -3.94442258, -2.88552087])])
+num_betas=10
+batch_size=1
+m = STAR(gender='male',num_betas=num_betas)
+
+# Zero pose
 poses = torch.cuda.FloatTensor(np.zeros((batch_size,72)))
-poses = Variable(poses,requires_grad=True)
-betas = torch.cuda.FloatTensor(np.zeros((batch_size,10)))
-betas = Variable(betas,requires_grad=True)
+betas = torch.cuda.FloatTensor(betas)
 
 trans = torch.cuda.FloatTensor(np.zeros((batch_size,3)))
-trans = Variable(trans,requires_grad=True)
-d = star(poses, betas,trans)
+model = star.forward(poses, betas,trans)
+shaped = model.v_shaped[-1, :, :]
 
-       
+

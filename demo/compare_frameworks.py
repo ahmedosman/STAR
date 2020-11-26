@@ -20,7 +20,7 @@
 # Code Developed by:
 # Ahmed A. A. Osman
 
-from ch.star import STAR
+from star.ch.star import STAR
 import numpy as np
 batch_size = 1
 
@@ -33,7 +33,7 @@ model.trans[:] = np_trans[0]
 model.pose[:]  = np_pose[0]
 model.betas[:] = np_betas[0]
 
-from tf.star import STAR
+from star.tf.star import STAR
 import tensorflow as tf
 import numpy as np
 
@@ -45,7 +45,7 @@ betas = tf.constant(np_betas,dtype=tf.float32)
 tf_star = star(pose,betas,trans)
 print(np.sqrt(np.sum((tf_star.numpy()-model.r)**2.0)))
 
-from pytorch.star import STAR
+from star.pytorch.star import STAR
 star = STAR(gender='female',num_betas=10)
 import torch
 import numpy as np
