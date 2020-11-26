@@ -122,16 +122,3 @@ class STAR(nn.Module):
         v.v_posed = v_posed
         v.v_shaped = v_shaped
         return v
-    
-    def get_joints(self, vertices):
-        """
-        This method is used to get the joint locations from the SMPL mesh
-        Input:
-            vertices: size = (B, 6890, 3)
-        Output:
-            3D joints: size = (B, 38, 3)
-        """
-        JOINTS_IDX = [e for e in np.arange(24)]
-        joints = torch.einsum("bik,ji->bjk", [vertices, self.J_regressor])
-        joints = joints[:, JOINTS_IDX]
-        return joints

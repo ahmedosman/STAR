@@ -45,14 +45,6 @@ def quat2mat(quat):
     return rotMat
 
 
-def orthographic_projection(X, camera):
-    camera = camera.view(-1, 1, 3)
-    X_trans = X[:, :, :2] + camera[:, :, 1:]
-    shape = X_trans.shape
-    X_2d = (camera[:, :, 0] * X_trans.view(shape[0], -1)).view(shape)
-    return X_2d
-
-
 def rodrigues(theta):
     l1norm = torch.norm(theta + 1e-8, p = 2, dim = 1)
     angle = torch.unsqueeze(l1norm, -1)
