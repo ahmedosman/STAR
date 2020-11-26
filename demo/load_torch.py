@@ -18,7 +18,7 @@
 #
 # Code Developed by:
 # Ahmed A. A. Osman
-from STAR.pytorch.star import STAR
+from star.pytorch.star import STAR
 import numpy as np
 from numpy import newaxis
 import pickle
@@ -43,15 +43,3 @@ model = star.forward(poses, betas,trans)
 shaped = model.v_shaped[-1, :, :]
 
 
-## Write to an .obj file
-outmesh_path = './hello_star_pytorch.obj'
-with open( outmesh_path, 'w') as fp:
-    for v in shaped:
-        fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
-
-    for f in model.f+1: # Faces are 1-based, not 0-based in obj files
-        fp.write( 'f %d %d %d\n' %  (f[0], f[1], f[2]) )
-
-## Print message
-print ('..Output mesh saved to: {}'.format(outmesh_path))
-       

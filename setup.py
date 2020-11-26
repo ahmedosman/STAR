@@ -26,7 +26,7 @@ with open("README.md", "r") as fh:
 REQUIREMENTS = ["numpy", "chumpy", "opencv-python"]
 
 setuptools.setup(
-     name='STAR',  
+     name='star',  
      version='0.0.1',
      author="Ahmed A. A. Osman",
      author_email="ahmed.osman@tuebingen.mpg.de",

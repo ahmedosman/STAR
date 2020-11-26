@@ -20,7 +20,7 @@
 # Ahmed A. A. Osman
 
 
-from pytorch.star import STAR
+from star.pytorch.star import STAR
 import tensorflow as tf 
 import torch
 import numpy as np 
