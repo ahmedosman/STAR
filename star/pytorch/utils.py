@@ -22,6 +22,12 @@
 import torch
 
 def quat_feat(theta):
+    '''
+        Computes a normalized quaternion ([0,0,0,0]  when the body is in rest pose)
+        given joint angles
+    :param theta: A tensor of joints axis angles, batch size x number of joints x 3
+    :return:
+    '''
     l1norm = torch.norm(theta + 1e-8, p=2, dim=1)
     angle = torch.unsqueeze(l1norm, -1)
     normalized = torch.div(theta, angle)
@@ -32,6 +38,11 @@ def quat_feat(theta):
     return quat
 
 def quat2mat(quat):
+    '''
+        Converts a quaternion to a rotation matrix
+    :param quat:
+    :return:
+    '''
     norm_quat = quat
     norm_quat = norm_quat / norm_quat.norm(p=2, dim=1, keepdim=True)
     w, x, y, z = norm_quat[:, 0], norm_quat[:, 1], norm_quat[:, 2], norm_quat[:, 3]
@@ -46,6 +57,12 @@ def quat2mat(quat):
 
 
 def rodrigues(theta):
+    '''
+        Computes the rodrigues representation given joint angles
+
+    :param theta: batch_size x number of joints x 3
+    :return: batch_size x number of joints x 3 x 4
+    '''
     l1norm = torch.norm(theta + 1e-8, p = 2, dim = 1)
     angle = torch.unsqueeze(l1norm, -1)
     normalized = torch.div(theta, angle)
@@ -54,3 +71,17 @@ def rodrigues(theta):
     v_sin = torch.sin(angle)
     quat = torch.cat([v_cos, v_sin * normalized], dim = 1)
     return quat2mat(quat)
+
+
+def with_zeros(input):
+    '''
+      Appends a row of [0,0,0,1] to a batch size x 3 x 4 Tensor
+
+    :param input: A tensor of dimensions batch size x 3 x 4
+    :return: A tensor batch size x 4 x 4 (appended with 0,0,0,1)
+    '''
+    batch_size  = input.shape[0]
+    row_append     = torch.cuda.FloatTensor(([0.0, 0.0, 0.0, 1.0]))
+    row_append.requires_grad = False
+    padded_tensor     = torch.cat([input, row_append.view(1, 1, 4).repeat(batch_size, 1, 1)], 1)
+    return padded_tensor
