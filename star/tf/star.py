@@ -22,8 +22,14 @@
 
 import tensorflow as tf
 import numpy as np
-from ..config import cfg
 import os
+
+
+class meta(object):
+    pass
+
+
+cfg = meta()
 
 
 @tf.function
@@ -43,12 +49,12 @@ def quaternions_all(p):
     tf_gathered_z = tf.gather(norm_p, 2)
     ###########################################################################
     sin_angle = tf.squeeze(tf.sin(angle / 2), axis=-1)
-    cose_angle = tf.squeeze(tf.cos(angle / 2), axis=-1)
+    cos_angle = tf.squeeze(tf.cos(angle / 2), axis=-1)
     ###########################################################################
     qx = tf_gathered_x * sin_angle
     qy = tf_gathered_y * sin_angle
     qz = tf_gathered_z * sin_angle
-    qw = cose_angle
+    qw = cos_angle
     norm_quat = tf.reshape(tf.stack([qx-0, qy-0, qz-0, qw-1], axis=2),
                            [batch_size, -1])
     ###########################################################################
@@ -192,21 +198,9 @@ def lrotmin(p):
 
 
 class STAR(object):
-    def __init__(self, gender='female', num_betas=10):
-
-        if gender.lower() not in ['male', 'female', 'neutral']:
-            raise RuntimeError('Invalid model gender')
-
-        if gender == 'male':
-            path_model = cfg.path_male_star
-        elif gender == 'female':
-            path_model = cfg.path_female_star
-        else:
-            path_model = cfg.path_neutral_star
-
+    def __init__(self, path_model='neutral.npz', num_betas=10):
         if not os.path.exists(path_model):
             raise RuntimeError('Path does not exist %s' % (path_model))
-        import numpy as np
 
         self.smpl_model = np.load(path_model, allow_pickle=True)
         cfg.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
@@ -225,7 +219,6 @@ class STAR(object):
                                      dtype=tf.float32)
         self.weights = tf.constant(self.smpl_model['weights'],
                                    dtype=tf.float32)
-        self.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
         self.f = self.smpl_model['f']
         tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'],
                                             [batch_size, 1, 1]), dtype=tf.float32)
