@@ -29,7 +29,7 @@ from star.pytorch.star import STAR
 import numpy as np
 import torch
 
-star = STAR(path_model="D:/Sync/Files/USP PhD/AMASS/models/star/female.npz")
+star = STAR(path_model="models/star/neutral.npz")
 betas = np.array([
             np.array([2.25176191, -3.7883464, 0.46747496, 3.89178988,
                       2.20098416, 0.26102114, -3.07428093, 0.55708514,
