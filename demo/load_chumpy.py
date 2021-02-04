@@ -27,14 +27,14 @@
 from star.ch.star import STAR
 import numpy as np
 
-model = STAR(path_model="models/star/neutral.npz", num_betas=10)
+star = STAR(path_model="models/star/neutral.npz", num_betas=10)
 # Assign random pose and shape parameters
-model.pose[:] = np.random.rand(model.pose.size) * .2
-model.betas[:] = np.random.rand(model.betas.size) * .03
+star.pose[:] = np.random.rand(star.pose.size) * .2
+star.betas[:] = np.random.rand(star.betas.size) * .03
 
 for j in range(0, 10):
     # Each loop all PC components are set to 0
-    model.betas[:] = 0.0
+    star.betas[:] = 0.0
     # Varying the jth component +/- 3 standard deviations
     for i in np.linspace(-3, 3, 10):
-        model.betas[j] = i
+        star.betas[j] = i

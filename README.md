@@ -101,24 +101,24 @@ It is recommended to do the following in a [conda](https://www.anaconda.com/prod
 1. Install your favorite framework
 
 * Chumpy
-```
+```bash
 pip install chumpy==0.69
 pip install opencv-python
 ```
 
 * PyTorch
-```
+```bash
 conda install pytorch torchvision torchaudio cudatoolkit=11.0 -c pytorch
 ```
 
 * Tensorflow
-```
+```bash
 pip install tensorflow
 ```
 
 2. Install this repository through pip
 
-```
+```bash
 pip install git+https://github.com/Vtn21/STAR
 ```
 
@@ -126,21 +126,31 @@ pip install git+https://github.com/Vtn21/STAR
 
 ### Usage
 
-Under demos/* there are scripts demonstrating how to load and use the model in all frameworks.
+You can load any STAR model (male, female or neutral) using your favorite framework (Chumpy, PyTorch or TensorFlow) passing the path to the model (relative or absolute) and the number of betas (shape primitives) to the constructor, as follows:
+
+```python
+from star.ch.star import STAR       # Chumpy
+from star.pytorch.star import STAR  # PyTorch
+from star.tf.star import STAR       # TensorFlow
+
+star = STAR(path_model="models/star/neutral.npz", num_betas=10)
+```
+
+Under *demos* there are scripts demonstrating how to load and use the model in all frameworks.
 ```bash
-    $PATH_TO_REPO/
+    STAR
     ├── demos
-    │   │
-    │   ├── compare_frameworks.py #Unit test script constructing the model with three frameworks and comparing the output
-    │   └── load_chumpy.py        #A script demonstrating loading the model in chumpy
-    │   └── load_tf.py            #A script demonstrating loading the model in Tensorflow
-    │   └── load_torch.py         #A script demonstrating loading the model in PyTorch
-    │   └── profile_tf.py         #A script profiling the STAR graph as a function of batch Size in Tensorflow
-    |   └── profile_torch.py      #A script profiling the STAR graph as a function of batch Size in PyTorch
+    │   ├── compare_frameworks.py # Unit test script constructing the model with three frameworks and comparing the output
+    │   ├── load_chumpy.py        # A script demonstrating loading the model in chumpy
+    │   ├── load_tf.py            # A script demonstrating loading the model in Tensorflow
+    │   ├── load_torch.py         # A script demonstrating loading the model in PyTorch
+    │   ├── profile_tf.py         # A script profiling the STAR graph as a function of batch Size in Tensorflow
+    |   └── profile_torch.py      # A script profiling the STAR graph as a function of batch Size in PyTorch
+    └── ...
 ```
 
 ## SMPL Comparison
-STAR is designed to be a drop in replacement for SMPL, similar to SMPL it is parameterised with pose and shape parameters, with the same template
+STAR is designed to be a drop in replacement for SMPL. Similar to SMPL, it is parameterized with pose and shape parameters, with the same template
 resolution and kinematic tree.
 
 <p align="center">
