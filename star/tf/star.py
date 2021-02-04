@@ -219,6 +219,7 @@ class STAR(object):
                                      dtype=tf.float32)
         self.weights = tf.constant(self.smpl_model['weights'],
                                    dtype=tf.float32)
+        self.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
         self.f = self.smpl_model['f']
         tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'],
                                             [batch_size, 1, 1]), dtype=tf.float32)
