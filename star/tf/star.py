@@ -107,15 +107,13 @@ def global_rigid_transformation(rot_mat, J):
 
 
 @tf.function
-def verts_core(pose, v, J, weights, kintree_table):
+def verts_core(pose, v, J, weights):
     '''
     Core linear blend skinning function.
     :param pose: num_batches x num_joints x 3 rotation vectors.
     :param v: batch_size x num_vertices x 3 shaped verticies.
     :param J: batch_size x num_joints x 3 joint location.
     :param weights: num_vertices x num_joints.
-    :param kintree_table: Kinematic tree 2 x num_joints.
-    :param want_Jtr: Transformed joints location.
     :return: batch_size x num_vertices x 3 transformed vertices
     '''
     batch_size = tf.shape(pose)[0]
@@ -203,9 +201,8 @@ class STAR(object):
             raise RuntimeError('Path does not exist %s' % (path_model))
 
         self.smpl_model = np.load(path_model, allow_pickle=True)
-        cfg.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
-
         self.num_betas = num_betas
+        cfg.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
 
     @tf.function
     def __call__(self, pose, betas, trans):
@@ -219,7 +216,6 @@ class STAR(object):
                                      dtype=tf.float32)
         self.weights = tf.constant(self.smpl_model['weights'],
                                    dtype=tf.float32)
-        self.kintree_table = self.smpl_model['kintree_table'].astype(np.int32)
         self.f = self.smpl_model['f']
         tf_v_template = tf.constant(np.tile(self.smpl_model['v_template'],
                                             [batch_size, 1, 1]), dtype=tf.float32)
@@ -232,7 +228,7 @@ class STAR(object):
         v_posed = v_shaped + poseblendshapes
         tf_J = tf.einsum('ij,ajk->aik', self.J_regressor, v_shaped)
         result, Jtr = verts_core(tf.reshape(pose, (-1, 24, 3)), v_posed, tf_J,
-                                 self.weights, self.kintree_table)
+                                 self.weights)
         result = tf.add(result, tf.tile(tf.expand_dims(trans, axis=1),
                                         [1, 6890, 1]))
         result.Jtr = tf.add(Jtr, tf.tile(tf.expand_dims(trans, axis=1),
