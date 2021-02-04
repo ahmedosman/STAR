@@ -1,11 +1,30 @@
-## STAR: Sparse Trained Articulated Human Body Regressor 
+<h1 align="center">STAR: Sparse Trained Articulated Human Body Regressor</h1>
 
-<!-- TODO: Replace with our arxiv link -->
-<!-- [![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/1912.05656) -->
+<div align="center">
 
-[[Project Page](https://star.is.tue.mpg.de/)] 
-[[Paper](https://ps.is.tuebingen.mpg.de/uploads_file/attachment/attachment/618/star_paper.pdf)]
-[[Supp. Mat.](https://ps.is.tuebingen.mpg.de/uploads_file/attachment/attachment/619/star_supmat.pdf)]
+  [[Project Page](https://star.is.tue.mpg.de/)]
+  [[Paper](https://ps.is.tuebingen.mpg.de/uploads_file/attachment/attachment/618/star_paper.pdf)]
+  [[Supp. Mat.](https://ps.is.tuebingen.mpg.de/uploads_file/attachment/attachment/619/star_supmat.pdf)]
+
+</div>
+
+<div align="center">
+
+  [![GitHub issues](https://img.shields.io/github/issues/Vtn21/STAR)](https://github.com/Vtn21/STAR/issues)
+  ![GitHub pull requests](https://img.shields.io/github/issues-pr/Vtn21/STAR)
+  [![GitHub forks](https://img.shields.io/github/forks/Vtn21/STAR)](https://github.com/Vtn21/STAR/network)
+  [![GitHub stars](https://img.shields.io/github/stars/Vtn21/STAR)](https://github.com/Vtn21/STAR/stargazers)
+  [![GitHub license](https://img.shields.io/github/license/Vtn21/STAR)](https://github.com/Vtn21/STAR/blob/main/LICENSE)
+
+</div>
+
+---
+
+<div align="center">
+
+  [Vtn21](https://github.com/Vtn21)'s fork - All credit to the [original authors](https://github.com/ahmedosman/STAR)
+
+</div>
 
 <p align="center">
   <img src="./images/main_teaser.png" />
@@ -13,6 +32,7 @@
 
 
 ## Table of Contents
+  * [About this fork](#about)
   * [License](#license)
   * [Description](#description)
     * [Content](#content)
@@ -22,6 +42,14 @@
   * [Acknowledgments](#acknowledgments)
   * [Contact](#contact)
 
+
+## 🍴 About this fork <a name = "about"></a>
+
+The [original repository](https://github.com/ahmedosman/STAR) requires cloning, updating path definitions in a specific config file (pointing to the .npz files of the STAR model), and then installing with pip (see [this section](https://github.com/ahmedosman/STAR#Installation) of the original README for details).
+
+This fork aims at enabling installing the package without having to modify any of the source files. Instead, the model path is specified when instantiating the model (see *demos* folder for examples).
+
+See below for updated [Content](#content) and [Installation and Usage](#Installation) sections. Remaining sections are inherited from the original repository.
 
 ## License
 
@@ -40,8 +68,8 @@ automatically terminate your rights under this [License](https://github.com/ahme
 ## Description
 
 STAR - A **S**parse **T**rained  **A**rticulated Human Body **R**egressor is a generateive 3D human body model, that is designed to be a drop-in replacement for the widely used SMPL model.
-STAR is trained on a large dataset of 14,000 human subjects, with a learned set of sparse and spatially local pose corrective 
-blend shapes. In the Figure below, a single joint movement only influences a sparse set of the model vertices. The mesh vertices in 
+STAR is trained on a large dataset of 14,000 human subjects, with a learned set of sparse and spatially local pose corrective
+blend shapes. In the Figure below, a single joint movement only influences a sparse set of the model vertices. The mesh vertices in
 gray are not affected by the joint movement. In contrast, for SMPL, bending the left elbow causes a bulge in the right elbow.  <br/>
 STAR is publicly avaiable with the full 300 principal-component shape space for research purposes from our website https://star.is.tue.mpg.de/
 
@@ -55,56 +83,50 @@ STAR is publicly avaiable with the full 300 principal-component shape space for 
 
 ## Content
 This repository contains the model loader for the following auto-differention frameworks:
-* PyTorch. 
-* Tensorflow 2.0.
+* PyTorch.
+* TensorFlow 2.0.
 * Chumpy.
 
-Code tested on Python 3.69, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, Tensorflow 2.3, Chumpy 0.69 on Ubuntu 18.04
+Code tested on:
 
-## Installation 
+* Python 3.6.9, CUDA 10.1, CuDNN 7.6.5 and PyTorch 1.6.0, TensorFlow 2.3, Chumpy 0.69 on Ubuntu 18.04 (by [@ahmedosman](https://github.com/ahmedosman))
+* Python 3.8.5, CUDA 11.0, CuDNN 8.0.5 and PyTorch 1.7.1, TensorFlow 2.4 on Windows 10 (by [@Vtn21](https://github.com/Vtn21))
 
-### Install 
+## Installation
 
-We recommend doing the following in a python3 virtual environment.
+### Install
 
-1. Clone the repository: 
+It is recommended to do the following in a [conda](https://www.anaconda.com/products/individual) (or python3) virtual environment.
 
-```Shell
-git clone git@github.com:ahmedosman/STAR.git
-```
-2. Install your favorite framework <br/>
-Chumpy
+1. Install your favorite framework
+
+* Chumpy
 ```
 pip install chumpy==0.69
 pip install opencv-python
 ```
 
-PyTorch
+* PyTorch
 ```
-pip install pytorch==1.6
-```
-
-Tensorflow
-```
-pip install tensorflow-gpu==2.3
-```
-5. Download the models from our website https://star.is.tue.mpg.de/
-
-6. Update the model paths in the config.py file.
-```python
-path_male_star = '/mypath/male/model.npz'
-path_female_star = '/mypath/female/model.npz'
-path_neutral_star = '/mypath/neutral/model.npz'
+conda install pytorch torchvision torchaudio cudatoolkit=11.0 -c pytorch
 ```
 
-7. Install with pip
+* Tensorflow
 ```
-pip install .
+pip install tensorflow
 ```
+
+2. Install this repository through pip
+
+```
+pip install git+https://github.com/Vtn21/STAR
+```
+
+3. Download the models from the STAR website https://star.is.tue.mpg.de/ (registration required) and unpack them to a directory of your choice.
 
 ### Usage
 
-Under demos/* there are scripts demonstrating how to load and use the model in all frameworks. 
+Under demos/* there are scripts demonstrating how to load and use the model in all frameworks.
 ```bash
     $PATH_TO_REPO/
     ├── demos
@@ -117,9 +139,9 @@ Under demos/* there are scripts demonstrating how to load and use the model in a
     |   └── profile_torch.py      #A script profiling the STAR graph as a function of batch Size in PyTorch
 ```
 
-## SMPL Comparison 
+## SMPL Comparison
 STAR is designed to be a drop in replacement for SMPL, similar to SMPL it is parameterised with pose and shape parameters, with the same template
-resolution and kinematic tree. 
+resolution and kinematic tree.
 
 <p align="center">
   <img src="./images/smpl_vs_star.jpeg" />
@@ -149,12 +171,12 @@ If you find this Model & Software useful in your research we would kindly ask yo
 ```
 
 ## Acknowledgments
-We thank Naureen M. Mahmood, Talha Zaman,  Nikos Athanasiou, Joachim Tesch, Muhammed Kocabas, Nikos Kolotouros and Vassilis Choutas for the discussions 
+We thank Naureen M. Mahmood, Talha Zaman,  Nikos Athanasiou, Joachim Tesch, Muhammed Kocabas, Nikos Kolotouros and Vassilis Choutas for the discussions
 and Sai Kumar Dwivedi, Lea Muller, Amir Ahmad and Nitin Saini for proof reading the script and
 Mason Landry for the video voice over and Benjamin Pellkofer for the IT support.
 
 ## Contact
 
-For questions, please contact [star@tue.mpg.de](mailto:star@tue.mpg.de). 
+For questions, please contact [star@tue.mpg.de](mailto:star@tue.mpg.de).
 
 For commercial licensing (and all related questions for business applications), please contact [ps-license@tue.mpg.de](mailto:ps-license@tue.mpg.de).
