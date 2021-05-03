@@ -139,7 +139,7 @@ If you find this Model & Software useful in your research we would kindly ask yo
 
 ```bibtex
 @inproceedings{STAR:ECCV:2020,
-  title = {STAR: Sparse Trained Articulated Human Body Regressor},
+  title = {{STAR}: Sparse Trained Articulated Human Body Regressor},
   author = {Ahmed A. A. Osman, Timo Bolkart, Michael J. Black},
   booktitle = {European Conference on Computer Vision (ECCV) },
   month = aug,
