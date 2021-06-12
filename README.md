@@ -138,14 +138,13 @@ resolution and kinematic tree.
 If you find this Model & Software useful in your research we would kindly ask you to cite:
 
 ```bibtex
-@inproceedings{STAR:ECCV:2020,
-  title = {{STAR}: Sparse Trained Articulated Human Body Regressor},
-  author = {Ahmed A. A. Osman, Timo Bolkart, Michael J. Black},
-  booktitle = {European Conference on Computer Vision (ECCV) },
-  month = aug,
-  year = {2020},
-  month_numeric = {8}
-}
+      author = {Osman, Ahmed A A and Bolkart, Timo and Black, Michael J.},
+      title = {{STAR}: A Sparse Trained Articulated Human Body Regressor},
+      booktitle = {European Conference on Computer Vision (ECCV)},
+      pages = {598--613},
+      year = {2020},
+      url = {https://star.is.tue.mpg.de}
+}    
 ```
 
 ## Acknowledgments
