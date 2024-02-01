@@ -97,12 +97,12 @@ path_female_star = '/mypath/female/model.npz'
 path_neutral_star = '/mypath/neutral/model.npz'
 ```
 
-Alternatively, place a file called `star.ini` in your user home directory, i.e.:
+Alternatively, place a file called `star.ini` in your user home directory, i.e.
 - Linux: `/home/username/star.ini`
 - Windows: `C:\Users\username\star.ini`
 - MacOs: `/Users/username/star.ini`
 
-The should specify the paths, e.g.
+The `star.ini` file should specify the paths, e.g.
 ```
 [DEFAULT]
 path_male_star = /Users/username/star_1_1/male/model.npz
