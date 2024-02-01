@@ -34,11 +34,13 @@ num_betas=10
 batch_size=1
 m = STAR(gender='male',num_betas=num_betas)
 
-# Zero pose
-poses = torch.cuda.FloatTensor(np.zeros((batch_size,72)))
-betas = torch.cuda.FloatTensor(betas)
+device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-trans = torch.cuda.FloatTensor(np.zeros((batch_size,3)))
+# Zero pose
+poses = torch.FloatTensor(np.zeros((batch_size,72)), device=device)
+betas = torch.FloatTensor(betas, device=device)
+
+trans = torch.FloatTensor(np.zeros((batch_size,3)), device=device)
 model = star.forward(poses, betas,trans)
 shaped = model.v_shaped[-1, :, :]
 
