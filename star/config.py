@@ -19,12 +19,24 @@
 # Code Developed by:
 # Ahmed A. A. Osman
 
-import os
+from configparser import ConfigParser
+from pathlib import Path
+
 path_male_star = ''
 path_female_star = ''
 path_neutral_star = ''
-
 data_type = 'float32'
+
+# allow users to specify paths in a config file outside the source
+config_path = Path.home() / 'star.ini'
+if config_path.exists():
+    config = ConfigParser()
+    config.read(config_path)
+
+    path_male_star = config['DEFAULT'].get('path_male_star', '')
+    path_female_star = config['DEFAULT'].get('path_female_star', '')
+    path_neutral_star = config['DEFAULT'].get('path_neutral_star', '')
+    data_type = config['DEFAULT'].get('data_type', 'float32')
 
 if data_type not in ['float16','float32','float64']:
     raise RuntimeError('Invalid data type %s'%(data_type))

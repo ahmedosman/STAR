@@ -33,7 +33,7 @@ from ..config import cfg
 
 
 class STAR(nn.Module):
-    def __init__(self,gender='female',num_betas=10):
+    def __init__(self,gender='female',num_betas=10,device=None):
         super(STAR, self).__init__()
 
         if gender not in ['male','female','neutral']:
@@ -55,18 +55,21 @@ class STAR(nn.Module):
         rows,cols = np.where(J_regressor!=0)
         vals = J_regressor[rows,cols]
         self.num_betas = num_betas
+        
+        if device:
+            device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
         # Model sparse joints regressor, regresses joints location from a mesh
-        self.register_buffer('J_regressor', torch.cuda.FloatTensor(J_regressor))
+        self.register_buffer('J_regressor', torch.FloatTensor(J_regressor).to(device))
 
         # Model skinning weights
-        self.register_buffer('weights', torch.cuda.FloatTensor(star_model['weights']))
+        self.register_buffer('weights', torch.FloatTensor(star_model['weights']).to(device))
         # Model pose corrective blend shapes
-        self.register_buffer('posedirs', torch.cuda.FloatTensor(star_model['posedirs'].reshape((-1,93))))
+        self.register_buffer('posedirs', torch.FloatTensor(star_model['posedirs'].reshape((-1,93))).to(device))
         # Mean Shape
-        self.register_buffer('v_template', torch.cuda.FloatTensor(star_model['v_template']))
+        self.register_buffer('v_template', torch.FloatTensor(star_model['v_template']).to(device))
         # Shape corrective blend shapes
-        self.register_buffer('shapedirs', torch.cuda.FloatTensor(np.array(star_model['shapedirs'][:,:,:num_betas])))
+        self.register_buffer('shapedirs', torch.FloatTensor(np.array(star_model['shapedirs'][:,:,:num_betas])).to(device))
         # Mesh traingles
         self.register_buffer('faces', torch.from_numpy(star_model['f'].astype(np.int64)))
         self.f = star_model['f']

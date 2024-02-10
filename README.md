@@ -97,6 +97,20 @@ path_female_star = '/mypath/female/model.npz'
 path_neutral_star = '/mypath/neutral/model.npz'
 ```
 
+Alternatively, place a file called `star.ini` in your user home directory, i.e.
+- Linux: `/home/username/star.ini`
+- Windows: `C:\Users\username\star.ini`
+- MacOs: `/Users/username/star.ini`
+
+The `star.ini` file should specify the paths, e.g.
+```
+[DEFAULT]
+path_male_star = /Users/username/star_1_1/male/model.npz
+path_female_star = /Users/username/star_1_1/female/model.npz
+path_neutral_star = /Users/username/star_1_1/neutral/model.npz
+data_type = float32
+```
+
 7. Install with pip
 ```
 pip install .
