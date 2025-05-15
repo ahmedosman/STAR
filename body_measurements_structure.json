@@ -1,0 +1,98 @@
+{
+  "male": {
+    "linear": {
+      "epaule": [100, 1000],
+      "dos": [100, 1000],
+      "longueur_chemise": [100, 1000],
+      "longueur_bras": [100, 1000],
+      "longueur_manche": [100, 1000],
+      "longueur_veste": [100, 1000],
+      "longueur_pantalon": [100, 1000],
+      "entrejambe": [100, 1000],
+      "entrejambe_genou": [100, 1000],
+      "genou_mollet": [100, 1000]
+    },
+    "circumference": {
+      "cou": [100, 1000],
+      "tour_de_bras": [100, 1000],
+      "poignet": [100, 1000],
+      "poitrine": [100, 1000],
+      "taille": [100, 1000],
+      "hanche": [100, 1000],
+      "fesse": [100, 1000],
+      "tour_de_cuisse": [100, 1000],
+      "dessus_du_genou": [100, 1000],
+      "mollet": [100, 1000],
+      "bas": [100, 1000]
+    }
+  },
+  "female": {
+    "linear": {
+      "apex": [100, 1000],
+      "dos": [100, 1000],
+      "hauteur_inferieur": [100, 1000],
+      "longueur_epaule_arriere": [100, 1000],
+      "longueur_chemise": [100, 1000],
+      "longueur_chemisier": [100, 1000],
+      "longueur_cuisse": [100, 1000],
+      "longueur_epaule": [100, 1000],
+      "longueur_estomac": [100, 1000],
+      "longueur_genou": [100, 1000],
+      "longueur_manche": [100, 1000],
+      "longueur_short": [100, 1000],
+      "longueur_bras": [100, 1000],
+      "longueur_hanche": [100, 1000],
+      "longueur_taille": [100, 1000],
+      "manche_3_4": [100, 1000],
+      "mancheron": [100, 1000],
+      "genou_mollet": [100, 1000]
+    },
+    "circumference": {
+      "bas_de_taille": [100, 1000],
+      "cheville": [100, 1000],
+      "col_arriere": [100, 1000],
+      "col_avant": [100, 1000],
+      "cou": [100, 1000],
+      "cuisse": [100, 1000],
+      "emmanchure": [100, 1000],
+      "epaule": [100, 1000],
+      "estomac": [100, 1000],
+      "fesse": [100, 1000],
+      "hanche": [100, 1000],
+      "haut_poitrine": [100, 1000],
+      "mollet": [100, 1000],
+      "poignet": [100, 1000],
+      "poitrine": [100, 1000],
+      "poitrine_chemisier": [100, 1000],
+      "taille": [100, 1000],
+      "tour_de_bras": [100, 1000]
+    }
+  },
+  "neutral": {
+    "linear": {
+      "epaule": [100, 1000],
+      "dos": [100, 1000],
+      "longueur_chemise": [100, 1000],
+      "longueur_bras": [100, 1000],
+      "longueur_manche": [100, 1000],
+      "longueur_veste": [100, 1000],
+      "longueur_pantalon": [100, 1000],
+      "entrejambe": [100, 1000],
+      "entrejambe_genou": [100, 1000],
+      "genou_mollet": [100, 1000]
+    },
+    "circumference": {
+      "cou": [100, 1000],
+      "tour_de_bras": [100, 1000],
+      "poignet": [100, 1000],
+      "poitrine": [100, 1000],
+      "taille": [100, 1000],
+      "hanche": [100, 1000],
+      "fesse": [100, 1000],
+      "tour_de_cuisse": [100, 1000],
+      "dessus_du_genou": [100, 1000],
+      "mollet": [100, 1000],
+      "bas": [100, 1000]
+    }
+  }
+}

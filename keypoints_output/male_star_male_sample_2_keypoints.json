@@ -1,0 +1,90 @@
+{
+    "linear": {
+        "epaule": [
+            6258,
+            3992
+        ],
+        "dos": [
+            3282,
+            2124
+        ],
+        "longueur_chemise": [
+            4202,
+            2330
+        ],
+        "longueur_bras": [
+            5083,
+            749
+        ],
+        "longueur_manche": [
+            2705,
+            602
+        ],
+        "longueur_veste": [
+            2390,
+            6573
+        ],
+        "longueur_pantalon": [
+            3335,
+            424
+        ],
+        "entrejambe": [
+            409,
+            4249
+        ],
+        "entrejambe_genou": [
+            2702,
+            6656
+        ],
+        "genou_mollet": [
+            5778,
+            1328
+        ]
+    },
+    "circumference": {
+        "cou": [
+            6258,
+            3992
+        ],
+        "tour_de_bras": [
+            3282,
+            2124
+        ],
+        "poignet": [
+            4202,
+            2330
+        ],
+        "poitrine": [
+            5083,
+            749
+        ],
+        "taille": [
+            2705,
+            602
+        ],
+        "hanche": [
+            2390,
+            6573
+        ],
+        "fesse": [
+            3335,
+            424
+        ],
+        "tour_de_cuisse": [
+            409,
+            4249
+        ],
+        "dessus_du_genou": [
+            2702,
+            6656
+        ],
+        "mollet": [
+            5778,
+            1328
+        ],
+        "bas": [
+            6415,
+            5532
+        ]
+    }
+}

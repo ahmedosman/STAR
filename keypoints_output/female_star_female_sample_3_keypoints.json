@@ -1,0 +1,150 @@
+{
+    "linear": {
+        "apex": [
+            2676,
+            3686
+        ],
+        "dos": [
+            4752,
+            547
+        ],
+        "hauteur_inferieur": [
+            733,
+            1747
+        ],
+        "longueur_epaule_arriere": [
+            2634,
+            5123
+        ],
+        "longueur_chemise": [
+            6344,
+            4237
+        ],
+        "longueur_chemisier": [
+            5854,
+            1226
+        ],
+        "longueur_cuisse": [
+            267,
+            3205
+        ],
+        "longueur_epaule": [
+            5638,
+            2978
+        ],
+        "longueur_estomac": [
+            3893,
+            6310
+        ],
+        "longueur_genou": [
+            4862,
+            6148
+        ],
+        "longueur_manche": [
+            285,
+            263
+        ],
+        "longueur_short": [
+            1698,
+            5679
+        ],
+        "longueur_bras": [
+            6678,
+            6664
+        ],
+        "longueur_hanche": [
+            791,
+            3107
+        ],
+        "longueur_taille": [
+            3172,
+            1912
+        ],
+        "manche_3_4": [
+            109,
+            577
+        ],
+        "mancheron": [
+            5228,
+            4331
+        ],
+        "genou_mollet": [
+            4841,
+            6107
+        ]
+    },
+    "circumference": {
+        "bas_de_taille": [
+            2676,
+            3686
+        ],
+        "cheville": [
+            4752,
+            547
+        ],
+        "col_arriere": [
+            733,
+            1747
+        ],
+        "col_avant": [
+            2634,
+            5123
+        ],
+        "cou": [
+            6344,
+            4237
+        ],
+        "cuisse": [
+            5854,
+            1226
+        ],
+        "emmanchure": [
+            267,
+            3205
+        ],
+        "epaule": [
+            5638,
+            2978
+        ],
+        "estomac": [
+            3893,
+            6310
+        ],
+        "fesse": [
+            4862,
+            6148
+        ],
+        "hanche": [
+            285,
+            263
+        ],
+        "haut_poitrine": [
+            1698,
+            5679
+        ],
+        "mollet": [
+            6678,
+            6664
+        ],
+        "poignet": [
+            791,
+            3107
+        ],
+        "poitrine": [
+            3172,
+            1912
+        ],
+        "poitrine_chemisier": [
+            109,
+            577
+        ],
+        "taille": [
+            5228,
+            4331
+        ],
+        "tour_de_bras": [
+            4841,
+            6107
+        ]
+    }
+}
