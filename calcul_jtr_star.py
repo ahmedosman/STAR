@@ -116,6 +116,51 @@ def visualiser_joints(Jtr, titre="Visualisation des joints STAR"):
 
     pyrender.Viewer(scene, use_raymond_lighting=True, window_title=titre)
 
+def visualiser_joints_sur_mesh(v_template, Jtr, titre="Joints sur mesh STAR"):
+    """
+    Visualise les joints superposés au mesh STAR avec pyrender.
+    """
+    scene = pyrender.Scene(bg_color=[1.0, 1.0, 1.0, 1.0], ambient_light=[0.2, 0.2, 0.2])
+
+    # Créer un mesh STAR à partir du template (v_template)
+    faces_path = os.path.join(os.path.dirname(__file__), '..', 'star_1_1', 'smplh_faces.npy')
+    if not os.path.exists(faces_path):
+        print("❌ Fichier des faces manquant (smplh_faces.npy)")
+        return
+
+    faces = np.load(faces_path)
+    mesh = trimesh.Trimesh(vertices=v_template, faces=faces, process=False)
+    star_mesh = pyrender.Mesh.from_trimesh(mesh, smooth=True)
+    scene.add(star_mesh)
+
+    # Ajouter les joints comme sphères rouges
+    sphere_radius = 0.01
+    for joint in Jtr:
+        sphere = trimesh.creation.icosphere(radius=sphere_radius)
+        sphere.apply_translation(joint)
+        joint_mesh = pyrender.Mesh.from_trimesh(sphere, smooth=False)
+        scene.add(joint_mesh)
+
+    # Caméra
+    center = v_template.mean(axis=0)
+    distance = 1.0
+    camera = pyrender.PerspectiveCamera(yfov=np.pi / 3.0)
+    camera_pose = np.array([
+        [1.0, 0.0, 0.0, center[0]],
+        [0.0, 1.0, 0.0, center[1]],
+        [0.0, 0.0, 1.0, center[2] + distance],
+        [0.0, 0.0, 0.0, 1.0]
+    ])
+    scene.add(camera, pose=camera_pose)
+
+    # Lumière
+    light = pyrender.DirectionalLight(color=np.ones(3), intensity=3.0)
+    scene.add(light, pose=camera_pose)
+
+    # Affichage
+    pyrender.Viewer(scene, use_raymond_lighting=True, window_title=titre)
+
+
 
 def pipeline_star():
     base_dir = os.path.join(os.path.dirname(__file__), '..', 'star_1_1')
@@ -141,6 +186,8 @@ def pipeline_star():
         visualiser_joints(Jtr, titre=f"Joints STAR - {genre}")
         visualiser_joints_squelette(Jtr, titre=f"Squelette 3D - {genre}")
         afficher_indices_joints(Jtr)
+        visualiser_joints_sur_mesh(v_template, Jtr, titre=f"Joints + Mesh - {genre}")
+
 
 
 if __name__ == "__main__":

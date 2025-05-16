@@ -23,7 +23,6 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'STAR')))
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'star')))
 from star.pytorch.star import STAR
-import numpy as np
 from numpy import newaxis
 import trimesh
 import torch

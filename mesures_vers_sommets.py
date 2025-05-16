@@ -5,7 +5,6 @@ import json
 import pandas as pd
 import os
 import imageio
-import matplotlib.pyplot as plt
 
 NOMS_KEYPOINTS = [
     "pelvis", "left_hip", "right_hip", "spine1", "left_knee", "right_knee",
